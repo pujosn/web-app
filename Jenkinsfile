@@ -46,6 +46,7 @@ pipeline {
                         sh '''
                         gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
                         gcloud container clusters get-credentials cluster-development --zone asia-southeast2-a --project sanji-453509
+                        kubectl apply -f services.yaml
                         kubectl apply -f deployment.yaml
                         kubectl apply -f ingress.yaml
                         '''
@@ -57,7 +58,7 @@ pipeline {
             stage('Get External IP') {
                 steps {
                     script {
-                        def externalIp = sh(script: "kubectl get service app1-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+                        def externalIp = sh(script: "kubectl get service web-app-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
                         if (!externalIp) {
                             error("External IP not assigned yet. Please check GKE Load Balancer.")
                         } else {
