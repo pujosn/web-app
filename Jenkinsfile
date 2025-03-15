@@ -6,11 +6,11 @@ pipeline {
         DOCKER_TAG = "1.1.0"
         GKE_CLUSTER = "cluster-development"
         GCP_PROJECT = "sanji-453509"
-        DEPLOYMENT_NAME = "app1-web"
+        DEPLOYMENT_NAME = "app1"
         CONTAINER_NAME = "app1"
         ZONE = "asia-southeast2-a"
-        EXTERNAL_IP = "34.50.70.47"
-        DOMAIN_NAME = "web1@takoples.my.id"
+        // EXTERNAL_IP = "34.50.70.47"
+        // DOMAIN_NAME = "web1@takoples.my.id"
 
     }
 
@@ -55,19 +55,24 @@ pipeline {
             }
         }
 
-            stage('Get External IP') {
-                steps {
-                    script {
-                        def externalIp = sh(script: "kubectl get service web-app-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
-                        if (!externalIp) {
-                            error("External IP not assigned yet. Please check GKE Load Balancer.")
-                        } else {
-                            echo "Application is available at http://${externalIp}"
-                        }
-                    }
-                }
+            // stage('Get External IP') {
+            //     steps {
+            //         script {
+            //             def externalIp = sh(script: "kubectl get service web-app-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+            //             if (!externalIp) {
+            //                 error("External IP not assigned yet. Please check GKE Load Balancer.")
+            //             } else {
+            //                 echo "Application is available at http://${externalIp}"
+            //             }
+            //         }
+            //     }
+            // }
+            stage('Expose Service') {
+            steps {
+                sh "kubectl expose deployment ${DEPLOYMENT_NAME} --type=LoadBalancer --port=9001 --target-port=9001 --name=${DEPLOYMENT_NAME}-service"
             }
         }
+    }
 
 
     post {
