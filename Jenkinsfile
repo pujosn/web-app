@@ -53,7 +53,20 @@ pipeline {
                 }          
             }
         }
-    }
+
+            stage('Get External IP') {
+                steps {
+                    script {
+                        def externalIp = sh(script: "kubectl get service app1-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
+                        if (!externalIp) {
+                            error("External IP not assigned yet. Please check GKE Load Balancer.")
+                        } else {
+                            echo "Application is available at http://${externalIp}"
+                        }
+                    }
+                }
+            }
+        }
 
 
     post {
