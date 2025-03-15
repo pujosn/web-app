@@ -1,0 +1,18 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: ingress-pool
+  # namespace: default
+spec:
+  addresses:
+    - 34.101.247.176/32  # Gunakan IP yang kamu punya
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: ingress-advert
+  # namespace: metallb-system
+
+
+
+
