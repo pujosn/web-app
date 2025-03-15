@@ -7,7 +7,7 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"  # Jika menggunakan SSL
 spec:
   rules:
-    - host: web1.takoples.my.id
+    - host: takoples.my.id
       http:
         paths:
           - path: /
@@ -16,4 +16,4 @@ spec:
               service:
                 name: app1-service
                 port:
-                  number: 80
+                  number: 9001
