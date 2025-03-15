@@ -67,17 +67,17 @@ pipeline {
             //         }
             //     }
             // }
-            stage('Expose Service') {
-            steps {
-                sh '''
-                if ! kubectl get service app1-service > /dev/null 2>&1; then
-                 kubectl expose deployment app1 --type=LoadBalancer --port=9001 --target-port=9001 --name=app1-service
-                else
-                 echo "Service app1-service sudah ada, melewati tahap expose."
-                fi 
-                '''                
-            }
-        }
+        //     stage('Expose Service') {
+        //     steps {
+        //         sh '''
+        //         if ! kubectl get service app1-service > /dev/null 2>&1; then
+        //          kubectl expose deployment app1 --type=LoadBalancer --port=9001 --target-port=9001 --name=app1-service
+        //         else
+        //          echo "Service app1-service sudah ada, melewati tahap expose."
+        //         fi 
+        //         '''                
+        //     }
+        // }
     }
 
 
