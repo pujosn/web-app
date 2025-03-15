@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: web-app-service
 spec:
+  type: LoadBalancer
+  LoadBalancerIP: 34.117.195.95
   selector:
     app: app1
   ports:
   - protocol: TCP
-    port: 80
+    port: 9001
     targetPort: 9001
-  type: LoadBalancer

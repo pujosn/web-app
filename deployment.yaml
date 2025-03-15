@@ -23,4 +23,4 @@ spec:
             memory: "20Mi"
             cpu: "20m"
         ports:
-        - containerPort: 80
+        - containerPort: 9001
