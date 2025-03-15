@@ -12,7 +12,7 @@ spec:
     metadata:
       labels:
         app: app1
-      namespace: web-app
+      # namespace: web-app
     spec:
       containers:
       - name: app1
