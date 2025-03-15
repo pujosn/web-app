@@ -3,8 +3,9 @@ kind: Ingress
 metadata:
   name: app1-ingress
   annotations:
-    kubernetes.io/ingress.class: "gce"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # Jika menggunakan SSL
+    kubernetes.io/ingress.class: "gce"  # Pastikan ini sesuai dengan environment-mu
+    networking.gke.io/managed-certificates: "app1-cert"
+    kubernetes.io/ingress.global-static-ip-name: "web-app-ip-1" # Pastikan ini sudah dibuat di GCP
 spec:
   rules:
     - host: takoples.my.id
