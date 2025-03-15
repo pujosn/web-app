@@ -70,8 +70,7 @@ pipeline {
                         sh "gcloud dns record-sets transaction add ${EXTERNAL_IP} --name=${DOMAIN_NAME} --ttl=300 --type=A --zone=${DNS_ZONE}"
                         sh "gcloud dns record-sets transaction execute --zone=${DNS_ZONE}"
                         echo "DNS Record Updated successfully"
-                    } else {
-                        error("DNS Zone ${DNS_ZONE} not found. Please verify the zone exists in Google Cloud DNS.")
+                        } 
                     }
                 }
             }
