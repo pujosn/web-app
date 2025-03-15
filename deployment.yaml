@@ -36,8 +36,8 @@ spec:
     app: app-web
   ports:
   - protocol: TCP
-    port: 8080
-    targetPort: 80
+    port: 80
+    targetPort: 9001
   type: ClusterIP
 
 ---
@@ -47,7 +47,7 @@ kind: Ingress
 metadata:
   name: app-web-ingress
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    # kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
