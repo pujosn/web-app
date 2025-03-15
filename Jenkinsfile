@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'pujosn/web-app2'
-        IMAGE_TAG = '1.1.0'
+        IMAGE_TAG = '1.1.1'
         KUBE_CONFIG = credentials('kubeconfig')
     }
 

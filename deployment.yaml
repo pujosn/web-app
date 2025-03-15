@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app-web
-        image: pujosn/web-app:1.1.3
+        image: pujosn/web-app2:1.1.1
         imagePullPolicy: Always
         resources:
           limits:
@@ -51,7 +51,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: takoples.my.id
+    - host: app1.takoples.my.id
       http:
         paths:
           - path: /
