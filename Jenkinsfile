@@ -9,8 +9,8 @@ pipeline {
         DEPLOYMENT_NAME = "app1-web"
         CONTAINER_NAME = "app1"
         ZONE = "asia-southeast2-a"
-        EXTERNAL_IP = "34.101.133.48"
-        DOMAIN_NAME = "app@takoples.my.id"
+        EXTERNAL_IP = "34.50.70.47"
+        DOMAIN_NAME = "web1@takoples.my.id"
 
     }
 
