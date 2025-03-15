@@ -6,7 +6,7 @@ metadata:
     cloud.google.com/load-balancer-type: "External"
 spec:
   type: LoadBalancer
-  loadBalancerIP: 34.101.247.176  # Ganti dengan IP static yang telah dicadangkan
+  loadBalancerIP: 34.101.37.31  # Ganti dengan IP static yang telah dicadangkan
   selector:
     app: app1
   ports:

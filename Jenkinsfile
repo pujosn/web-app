@@ -9,7 +9,7 @@ pipeline {
         DEPLOYMENT_NAME = "app1-service"
         CONTAINER_NAME = "app1"
         ZONE = "asia-southeast2-a"
-        EXTERNAL_IP = "34.101.247.176"
+        EXTERNAL_IP = "34.101.37.31"
         DOMAIN_NAME = "takoples.my.id"
         DNS_ZONE = "takoples-zone"
 
