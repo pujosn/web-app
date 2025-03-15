@@ -9,8 +9,8 @@ pipeline {
         DEPLOYMENT_NAME = "app1"
         CONTAINER_NAME = "app1"
         ZONE = "asia-southeast2-a"
-        // EXTERNAL_IP = "34.50.70.47"
-        // DOMAIN_NAME = "web1@takoples.my.id"
+        EXTERNAL_IP = "34.101.226.26"
+        DOMAIN_NAME = "web1.takoples.my.id"
 
     }
 
@@ -55,29 +55,14 @@ pipeline {
             }
         }
 
-            // stage('Get External IP') {
-            //     steps {
-            //         script {
-            //             def externalIp = sh(script: "kubectl get service web-app-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'", returnStdout: true).trim()
-            //             if (!externalIp) {
-            //                 error("External IP not assigned yet. Please check GKE Load Balancer.")
-            //             } else {
-            //                 echo "Application is available at http://${externalIp}"
-            //             }
-            //         }
-            //     }
-            // }
-        //     stage('Expose Service') {
-        //     steps {
-        //         sh '''
-        //         if ! kubectl get service app1-service > /dev/null 2>&1; then
-        //          kubectl expose deployment app1 --type=LoadBalancer --port=9001 --target-port=9001 --name=app1-service
-        //         else
-        //          echo "Service app1-service sudah ada, melewati tahap expose."
-        //         fi 
-        //         '''                
-        //     }
-        // }
+            stage('Configure Domain') {
+            steps {
+                sh "gcloud dns record-sets transaction start --zone=asia-southeast2-a"
+                sh "gcloud dns record-sets transaction add $EXTERNAL_IP --name=$DOMAIN_NAME --ttl=300 --type=A --zone=asia-southeast2-a"
+                sh "gcloud dns record-sets transaction execute --zone=asia-southeast2-a"
+            }
+        }
+            
     }
 
 
