@@ -46,8 +46,8 @@ pipeline {
                         sh '''
                         gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
                         gcloud container clusters get-credentials cluster-development --zone asia-southeast2-a --project sanji-453509
-                        kubectl apply -f services.yaml
                         kubectl apply -f deployment.yaml
+                        kubectl apply -f services.yaml
                         kubectl apply -f ingress.yaml
                         '''
                     }
