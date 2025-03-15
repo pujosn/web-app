@@ -55,13 +55,13 @@ pipeline {
             }
         }
 
-            stage('Configure Domain') {
+        stage('Configure Domain') {
             steps {
                 def zoneExists = sh(script: "gcloud dns managed-zones list --format='value(name)' | grep -w $DNS_ZONE || echo ''", returnStdout: true).trim()
-                    if (zoneExists) {
-                        sh "gcloud dns record-sets transaction start --zone=$DNS_ZONE"
-                        sh "gcloud dns record-sets transaction add $EXTERNAL_IP --name=$DOMAIN_NAME --ttl=300 --type=A --zone=$DNS_ZONE"
-                        sh "gcloud dns record-sets transaction execute --zone=$DNS_ZONE"
+                if (zoneExists) {
+                    sh "gcloud dns record-sets transaction start --zone=$DNS_ZONE"
+                    sh "gcloud dns record-sets transaction add $EXTERNAL_IP --name=$DOMAIN_NAME --ttl=300 --type=A --zone=$DNS_ZONE"
+                    sh "gcloud dns record-sets transaction execute --zone=$DNS_ZONE"
                     } else {
                         error("DNS Zone $DNS_ZONE not found. Please verify the zone exists in Google Cloud DNS.")
                     }
