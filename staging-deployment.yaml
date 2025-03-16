@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-app-staging
-  namespace: staging-ns
 spec:
   selector:
     matchLabels:
@@ -11,6 +10,7 @@ spec:
     metadata:
       labels:
         app: web-app
+        namespace: staging-ns
     spec:
       containers:
       - name: web-app
