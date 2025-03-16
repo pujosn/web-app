@@ -40,19 +40,28 @@ pipeline {
 
         stage('Deploy to Staging') {
             steps {
-                withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://index.docker.io/v1/']) {
-                    sh "docker push $IMAGE_NAME:$IMAGE_TAG"
-                }
+                sh '''
+                gcloud container clusters get-credentials ${GKE_CLUSTER} --zone asia-southeast2-a
+                kubectl config set-context --current --namespace=${STAGING_NAMESPACE}
+                kubectl apply -f staging-deployment.yaml
+                '''
+            }
+        }
+
+        stage('Approval for Production') {
+            steps {
+                input message: 'Deploy to Production?', ok: 'Deploy'
+                // stage manual approval
             }
         }
 
         stage('Deploy to Production') {
             steps {
-                withKubeConfig([credentialsId: 'kubeconfig']) {
-                    sh "kubectl apply -f deployment.yaml"
-                    // sh "kubectl apply -f service.yaml"
-                    // sh "kubectl apply -f ingress.yaml"
-                }
+                sh '''
+                gcloud container clusters get-credentials ${GKE_CLUSTER} --zone asia-southeast2-a
+                kubectl config set-context --current --namespace=$PROD_NAMESPACE
+                kubectl apply -f production-deployment.yaml
+                '''
             }
         }
     }
