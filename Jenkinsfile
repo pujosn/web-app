@@ -41,8 +41,8 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 sh '''
-                gcloud container clusters get-credentials ${GKE_CLUSTER} --zone asia-southeast2-a
-                kubectl config set-context --current --namespace=${STAGING_NAMESPACE}
+                gcloud container clusters get-credentials $GKE_CLUSTER --zone asia-southeast2-a
+                kubectl config set-context --current --namespace=$STAGING_NAMESPACE
                 kubectl apply -f staging-deployment.yaml
                 '''
             }
@@ -58,7 +58,7 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 sh '''
-                gcloud container clusters get-credentials ${GKE_CLUSTER} --zone asia-southeast2-a
+                gcloud container clusters get-credentials $GKE_CLUSTER --zone asia-southeast2-a
                 kubectl config set-context --current --namespace=$PROD_NAMESPACE
                 kubectl apply -f production-deployment.yaml
                 '''
