@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE      = "pujosn/web-app2"
         IMAGE_TAG         = "1.1.1"
-        GKE_CLUSTER       = "cluster-development"
+        GKE_CLUSTER       = "cluster-prod"
         GCP_PROJECT       = "sanji-453509"
         STAGING_NAMESPACE = "staging-ns"
         PROD_NAMESPACE    = "production-ns"
@@ -41,7 +41,7 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 sh '''
-                gcloud container clusters get-credentials $GKE_CLUSTER --zone asia-southeast2-a
+                gcloud container clusters get-credentials $GKE_CLUSTER --zone asia-southeast1-a
                 kubectl config set-context --current --namespace=$STAGING_NAMESPACE
                 kubectl apply -f staging-deployment.yaml
                 '''
@@ -58,7 +58,7 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 sh '''
-                gcloud container clusters get-credentials $GKE_CLUSTER --zone asia-southeast2-a
+                gcloud container clusters get-credentials $GKE_CLUSTER --zone asia-southeast1-a
                 kubectl config set-context --current --namespace=$PROD_NAMESPACE
                 kubectl apply -f prod-deployment.yaml
                 '''
