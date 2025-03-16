@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE      = "pujosn/web-app2"
-        IMAGE_TAG         = "1.1.1"
+        IMAGE_TAG         = "1.1.2"
         GKE_CLUSTER       = "cluster-prod"
         GCP_PROJECT       = "sanji-453509"
         STAGING_NAMESPACE = "staging-ns"
