@@ -25,6 +25,21 @@ spec:
 
 
 ---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mypv-staging
+  namespace: staging-ns-ns
+spec:
+  capacity:
+    storage: 20Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+
+
+---
 apiVersion: v1
 kind: Service
 metadata:
