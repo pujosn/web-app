@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE      = "pujosn/web-app2"
         IMAGE_TAG         = "1.1.2"
         GKE_CLUSTER       = "cluster-prod"
-        GCP_PROJECT       = "sanji-453509"
+        GCP_PROJECT       = "chopper-453920"
         STAGING_NAMESPACE = "staging-ns"
         PROD_NAMESPACE    = "production-ns"
     }
@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'git@github.com:pujosn/app1.git'
+                git 'git@github.com:pujosn/web-app.git'
             }
         }
 
