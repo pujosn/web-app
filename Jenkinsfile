@@ -38,19 +38,20 @@ pipeline {
             }
         }
 
-        stage('Deploy to Staging') {
-            steps {
-                script {
-                    withCredentials([file(credentialsId: 'gcp-key-jenkins', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                    sh '''
-                    gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-                    gcloud container clusters get-credentials $GKE_CLUSTER --zone asia-southeast1-a --project chopper-453920
-                    kubectl config set-context --current --namespace=$STAGING_NAMESPACE
-                    kubectl apply -f staging-deployment.yaml
-                    '''
+            stage('Deploy to Staging') {
+                steps {
+                    script {
+                        withCredentials([file(credentialsId: 'gcp-key-jenkins', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                        sh '''
+                        gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+                        gcloud container clusters get-credentials $GKE_CLUSTER --zone asia-southeast1-a --project chopper-453920
+                        kubectl config set-context --current --namespace=$STAGING_NAMESPACE
+                        kubectl apply -f staging-deployment.yaml
+                        '''
+                    }
+                }
             }
         }
-    }
 
         stage('Approval for Production') {
             steps {
